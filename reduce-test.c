@@ -2,5 +2,5 @@
 
 int main()
 {
-  printf("Doing git stuff");
+  printf("Doing git stuff   ");
 }
