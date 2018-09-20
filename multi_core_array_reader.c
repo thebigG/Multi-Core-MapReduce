@@ -1,6 +1,6 @@
 #include<pthread.h>
 #include<stdlib.h>
-#include<stdio.h>
+#include<stdio.h> 
 
 int shared_memory[] = {1,2,3,4,5,6,7,8,9,10};
 int shared_index = 0;
