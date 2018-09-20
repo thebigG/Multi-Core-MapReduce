@@ -7,7 +7,7 @@ int reduce();
 int main(int argc, char** argv)
 {
 
- if (argc=!12)
+ if (argc!=12)
  {
    printf("Ivalid arguments\n");
    printf("mapred –-app [wordcount, sort] "
