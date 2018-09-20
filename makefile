@@ -1,16 +1,16 @@
-TARGET = client
-OBJECTS = libnetfiles.o Client.o
+TARGET = mapred
+OBJECTS = io_api.o multi_core.o
 FLAGS = -Wall -fsanitize=address -fsanitize-recover=address -g
 
-$(TARGET): libnetfiles.o Client.o
+$(TARGET): io_api.o multi_core.o
 		gcc $(FLAGS) -o $@ $^
 
 
-clean: 
+clean:
 	rm -f $(TARGET) $(OBJECTS)
 
 %.o: %.c
 	gcc $(FLAGS) -c $<
 
-libnetfiles.o: libnetfiles.h
- Client.o:  libnetfiles.h
+io_api.o: io_api.h
+ multi_core.o: io_api.h

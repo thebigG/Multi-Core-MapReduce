@@ -1,3 +1,4 @@
+#include"io_api.h"
 int get_filesize(char* file_path)
 {
 struct stat data;
@@ -20,7 +21,6 @@ int writer(int file_descriptor, char* buffer, int byte_goal, int write_rate)
       perror("write");
       return -1;
     }
-    printf("writer running on %d\n", getpid());
     total_bytes_written += bytes_written;
   }
   return total_bytes_written;
@@ -37,7 +37,6 @@ int reader(int file_descriptor ,char* buffer, int byte_goal, int read_rate)
       perror("reader:");
       return -1;
     }
-    printf("reader running on %d\n", getpid());
     total_bytes_read += bytes_read;
     //printf("total_bytes_read on client side: %d\n", total_bytes_read);
   }
