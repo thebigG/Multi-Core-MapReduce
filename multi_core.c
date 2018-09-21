@@ -20,7 +20,7 @@ int main(int argc, char** argv)
  printf("file: %s", argv[8]);
 char* input_file = argv[8];
 int input_file_szie =  get_filesize(input_file);
-char* data = malloc(input_file_szie);
+char* data = malloc(input_file_szie + 1);
 int input_fd  = open(input_file, O_RDONLY);
 if(input_fd == -1)
 {
@@ -33,12 +33,14 @@ if(reader(input_fd, data, input_file_szie, input_file_szie) == -1)
   return -1;
 }
 StringLinkedList* head  = NULL;
-
-initStringLinkedList("Tree",&head);
-printf("Head: %s\n", head->String);
- StringLinkedList* current = head;
-current = current->next;
-insertString("Dirty", head);
-printf("Next: %s\n", current->String);
+data[input_file_szie] = '\0';
+token_split(data, &head, " .,;:!-");
+StringLinkedList* current = head;
+while(current != NULL)
+{
+  printf("token: %s\n", current->String);
+  current = current->next;
+}
+free(data);
 return 0;
 }
