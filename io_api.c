@@ -1,6 +1,7 @@
 #include"io_api.h"
 int get_filesize(char* file_path)
 {
+  printf("file path:%s\n", file_path);
 struct stat data;
 if (stat(file_path, &data ) == -1)
 {

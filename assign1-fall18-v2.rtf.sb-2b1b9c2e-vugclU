@@ -1,0 +1,339 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fmodern\fcharset0 CourierNewPS-BoldMT;\f1\fmodern\fcharset0 CourierNewPSMT;\f2\froman\fcharset0 TimesNewRomanPSMT;
+\f3\fnil\fcharset0 TrebuchetMS;\f4\fmodern\fcharset0 CourierNewPS-BoldItalicMT;\f5\ftech\fcharset0 Wingdings-Regular;
+\f6\fnil\fcharset0 LucidaGrande;\f7\ftech\fcharset77 Symbol;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c100000;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listlevel\levelnfc4\levelnfcn4\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{lower-alpha\}.}{\leveltext\leveltemplateid2\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1440\lin1440 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat4\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid101\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listlevel\levelnfc4\levelnfcn4\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{lower-alpha\}.}{\leveltext\leveltemplateid102\'02\'01.;}{\levelnumbers\'01;}\fi-360\li1440\lin1440 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid202\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{square\}}{\leveltext\leveltemplateid203\'01\uc0\u9642 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid301\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid401\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid501\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid6}
+{\list\listtemplateid7\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid601\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid602\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid7}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}}
+\margl1440\margr1440\vieww25400\viewh15520\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs24 \cf2 \expnd0\expndtw0\kerning0
+Programming Assignment #1\
+Multi-Core MapReduce\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf2 CS 416: Operating System Design\
+Due 11:55 PM, October 9\
+\
+Professor:  Abhishek Bhatacharjee\
+TAs: Dennis Vranjesevic and Zi Yan			\
+\
+Group Size: 3 per group (one group of 4)\
+Programming Language: 
+\f0\b C or C++ ONLY
+\f1\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b \cf2 \
+Overview\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf2 For this assignment, you will implement a framework for multithreaded data processing on a single computer that follows the \'93MapReduce\'94 paradigm.\
+\
+MapReduce is a popular programming paradigm for data intensive computing in clustered environments such as enterprise data-centers and clouds. MapReduce is used as a framework for solving number of parallel tasks, using a large number of CPUs or computers (nodes), collectively referred to as a cluster.
+\f2 \
+
+\f1 \
+The name MapReduce comes from the two-phase manner in which the data is processed:\
+\
+In the 
+\f0\b map 
+\f1\b0 phase, the input is divided into smaller sub-problems, and distributed to individual worker nodes. The worker node then processes the smaller problem, and passes the answer back to the framework. 
+\f2 \
+
+\f1 \
+In the 
+\f0\b reduce 
+\f1\b0 phase, the framework then takes the answers to all the sub-problems and combines them in a way to get the final output for the problem being solved. 
+\f0\b \
+\
+Assignment\
+
+\f1\b0 \
+\pard\tx360\tx800\pardeftab720\li800\fi-800\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	1.	}\expnd0\expndtw0\kerning0
+You are required to design and implement a MapReduce framework using C or C++ on Linux.
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2.	}\expnd0\expndtw0\kerning0
+Your framework must be configurable to provide parallelism in two distinct ways:\
+\pard\tx1080\tx1440\pardeftab720\li1440\fi-1440\partightenfactor0
+\ls1\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	a.	}\expnd0\expndtw0\kerning0
+Using multiple Linux processes\
+\ls1\ilvl1\kerning1\expnd0\expndtw0 {\listtext	b.	}\expnd0\expndtw0\kerning0
+Using POSIX threads (pthreads)
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \
+\pard\tx360\tx800\pardeftab720\li800\fi-800\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	3.	}\expnd0\expndtw0\kerning0
+Your framework should be designed in a general manner. In particular, the problem to be solved (see item 5 below) should be encapsulated solely in the implementation of the map() and reduce() functions. Substitution of different map() and reduce() functions should enable your framework to solve a different problem without 
+\f4\i\b any further changes in the framework itself.
+\f1\i0\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\i\b \cf2 \
+\pard\tx360\tx800\pardeftab720\li800\fi-800\partightenfactor0
+\ls2\ilvl0
+\f1\i0\b0 \cf2 \kerning1\expnd0\expndtw0 {\listtext	4.	}\expnd0\expndtw0\kerning0
+All intermediate data that is to be transferred between the map and reduce phases is to be stored in 
+\f0\b POSIX shared memory
+\f1\b0 . Reading and writing to this shared memory may require synchronization (mutual exclusion).  You may NOT write intermediate output to the file system.  There also needs to be synchronization (barrier) to explicitly separate the map and reduce phases.
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	5.	}\expnd0\expndtw0\kerning0
+Once your framework is working, you must implement two sets of map/reduce functions to solve the following problems:\
+\pard\tx1080\tx1440\pardeftab720\li1440\fi-1440\partightenfactor0
+\ls2\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	a.	}
+\f0\b \expnd0\expndtw0\kerning0
+Word count: 
+\f1\b0 given an input file, you must count the number of times each individual word appears in the input, and output a file containing a list of words followed by their counts.\
+\ls2\ilvl1\kerning1\expnd0\expndtw0 {\listtext	b.	}
+\f0\b \expnd0\expndtw0\kerning0
+Integer sort:
+\f1\b0  given an input file containing a list of integers, you must output a file containing the same integers in sorted, ascending order.
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \
+\pard\tx360\tx800\pardeftab720\li800\fi-800\partightenfactor0
+\ls2\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	6.	}\expnd0\expndtw0\kerning0
+You will be provided with sample input and output files for each problem. Your implementation must be able to process the example input and must produce output in 
+\f0\b exactly
+\f1\b0  the same format as the example output file. (These sample files will be attached to the assignment on Sakai).
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	7.	}\expnd0\expndtw0\kerning0
+Your framework must compile to a single executable file called 
+\f0\b mapred
+\f1\b0 , that conforms to the following command line structure:
+\f3\fs22 \uc0\u8232 \u8232 
+\f0\b\fs24 mapred \'96-app [wordcount, sort] \'96-impl [procs, threads]
+\f3\b0\fs22 \uc0\u8232 
+\f0\b\fs24 --maps num_maps \'96-reduces num_reduces --input infile
+\f3\b0\fs22 \uc0\u8232 
+\f0\b\fs24 \'96-output outfile
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f0\b \cf2 \
+\pard\pardeftab720\li720\partightenfactor0
+
+\f3\b0\fs22 \cf2 \uc0\u8232 
+\f1\fs24 You should be able to execute this four different ways:\
+\pard\tx1800\tx2160\pardeftab720\li2160\fi-2160\partightenfactor0
+\ls3\ilvl2
+\f5 \cf2 \kerning1\expnd0\expndtw0 {\listtext	
+\f6 \uc0\u9642 
+\f5 	}
+\f1 \expnd0\expndtw0\kerning0
+wordcount using processes\
+\ls3\ilvl2
+\f5 \kerning1\expnd0\expndtw0 {\listtext	
+\f6 \uc0\u9642 
+\f5 	}
+\f1 \expnd0\expndtw0\kerning0
+wordcount using threads\
+\ls3\ilvl2
+\f5 \kerning1\expnd0\expndtw0 {\listtext	
+\f6 \uc0\u9642 
+\f5 	}
+\f1 \expnd0\expndtw0\kerning0
+sort using processes\
+\ls3\ilvl2
+\f5 \kerning1\expnd0\expndtw0 {\listtext	
+\f6 \uc0\u9642 
+\f5 	}
+\f1 \expnd0\expndtw0\kerning0
+sort using threads
+\f2 \
+\pard\pardeftab720\li720\partightenfactor0
+
+\f1 \cf2 with any arbitrary number of maps and reduces.
+\f0\b \
+\pard\pardeftab720\partightenfactor0
+\cf2 Honors/Extra Credit\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf2 All students in the honors section must meet these additional requirements for full credit; students in the regular sections may earn up to 20% extra credit by meeting these requirements 
+\f4\i\b provided that they also meet all of the base requirements.
+\f1\i0\b0 \
+\
+\pard\tx360\tx800\pardeftab720\li800\fi-800\partightenfactor0
+\ls4\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	1.	}\expnd0\expndtw0\kerning0
+You must implement an additional multithreaded solution for each of the specified problems (integer sort and wordcount) using a non-MapReduce parallel implementation.
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2.	}\expnd0\expndtw0\kerning0
+Your additional implementation must use pthreads.
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	3.	}\expnd0\expndtw0\kerning0
+The additional solution must be activated by adding an additional option to the \'96-impl flag called \'93extra\'94. In this case, the \'96-maps and \'96-reduces arguments will not be necessary, and should be replaced by a single 
+\f3\fs22 \uc0\u8232 
+\f1\fs24 \'96-numthreads [thread_count] argument.
+\f3\fs22 \uc0\u8232 \u8232 
+\f1\fs24 For Example:
+\f3\fs22 \uc0\u8232 
+\f0\b\fs24 mapred \'96-app wordcount \'96-impl extra --numthreads 8
+\f3\b0\fs22 \uc0\u8232 
+\f0\b\fs24 --input infile \'96-output outfile
+\f1\b0 \
+\pard\pardeftab720\li360\partightenfactor0
+\cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\f0\b \cf2 Report\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf2 \
+You must also provide a report that contains, at the minimum:\
+\pard\tx720\tx1160\pardeftab720\li1160\fi-1160\partightenfactor0
+\ls5\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	1.	}\expnd0\expndtw0\kerning0
+The names of the group members.\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2.	}\expnd0\expndtw0\kerning0
+An architectural description of your framework.\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	3.	}\expnd0\expndtw0\kerning0
+An evaluation of the performance difference between the process-based and thread-based implementations of your framework.\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	4.	}\expnd0\expndtw0\kerning0
+A description of any difficulties that you encountered during this project.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+The report must be in PDF format to receive credit, 
+\f0\b no exceptions.\
+
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f0\b \cf2 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Submission
+\f1\b0 \
+
+\f0\b \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf2 Solutions must be submitted to Sakai, attached to the assignment. Each group should nominate one member to submit their solution. Each student SHOULD NOT submit an individual copy of the solution.  \
+\
+Each submission must consist of two files:\
+\
+\pard\tx1080\tx1520\pardeftab720\li1520\fi-1520\partightenfactor0
+\ls6\ilvl0
+\f3\fs22 \cf2 \kerning1\expnd0\expndtw0 {\listtext	1.	}
+\f1\fs24 \expnd0\expndtw0\kerning0
+A .tar file containing the entire contents of your git repository, which will include your source code and a Makefile.  The name of the file that you will submit will be called: 
+\f0\b pa1.tar.gz
+\f3\b0\fs22 \
+\pard\tx1080\tx1520\pardeftab720\li1520\fi-1520\partightenfactor0
+\ls6\ilvl0
+\f1\fs24 \cf2 \kerning1\expnd0\expndtw0 {\listtext	2.	}\expnd0\expndtw0\kerning0
+A PDF file containing the report.  Do not include this inside the .tar file.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+You will receive no credit for the code if it does not compile on I-Lab machines.\
+\pard\pardeftab720\li720\partightenfactor0
+
+\f2 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs22 \cf2 \uc0\u8232 
+\f0\b\fs24 References\
+\
+\pard\tx20\tx360\pardeftab720\li360\fi-360\partightenfactor0
+\ls7\ilvl0
+\f7\b0\fs20 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}
+\f1 \expnd0\expndtw0\kerning0
+MapReduce:\
+\pard\tx720\tx1047\pardeftab720\li1047\fi-1048\partightenfactor0
+\ls7\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}{\field{\*\fldinst{HYPERLINK "http://en.wikipedia.org/wiki/MapReduce"}}{\fldrslt \cf3 \expnd0\expndtw0\kerning0
+\ul \ulc3 http://en.wikipedia.org/wiki/MapReduce}}
+\f3\fs22 \expnd0\expndtw0\kerning0
+\
+\pard\tx20\tx360\pardeftab720\li360\fi-360\partightenfactor0
+\ls7\ilvl0
+\f7\fs20 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}
+\f1 \expnd0\expndtw0\kerning0
+Mutual Exclusion and Synchronization\
+\pard\tx720\tx1047\pardeftab720\li1047\fi-1048\partightenfactor0
+\ls7\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}{\field{\*\fldinst{HYPERLINK "http://en.wikipedia.org/wiki/Mutual_exclusion"}}{\fldrslt \cf3 \expnd0\expndtw0\kerning0
+\ul \ulc3 http://en.wikipedia.org/wiki/Mutual_exclusion}}
+\f3\fs22 \expnd0\expndtw0\kerning0
+\
+\pard\tx720\tx1080\pardeftab720\li1080\fi-1080\partightenfactor0
+\ls7\ilvl1
+\f1\fs20 \cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}\expnd0\expndtw0\kerning0
+http://en.wikipedia.org/wiki/Semaphore_(programming)\
+\pard\tx720\tx1080\pardeftab720\li1080\fi-1080\partightenfactor0
+\ls7\ilvl1
+\fs24 \cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}
+\fs20 \expnd0\expndtw0\kerning0
+https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
+\f2\fs24 \
+\pard\tx20\tx360\pardeftab720\li360\fi-360\partightenfactor0
+\ls7\ilvl0
+\f7\fs20 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}
+\f1 \expnd0\expndtw0\kerning0
+Creating and using multiple processes\
+\pard\tx720\tx1047\pardeftab720\li1047\fi-1048\partightenfactor0
+\ls7\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}{\field{\*\fldinst{HYPERLINK "http://www.yolinux.com/TUTORIALS/ForkExecProcesses.html"}}{\fldrslt \cf3 \expnd0\expndtw0\kerning0
+\ul \ulc3 http://www.yolinux.com/TUTORIALS/ForkExecProcesses.html}}
+\f3\fs22 \expnd0\expndtw0\kerning0
+\
+\pard\tx20\tx360\pardeftab720\li360\fi-360\partightenfactor0
+\ls7\ilvl0
+\f7\fs20 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}
+\f1 \expnd0\expndtw0\kerning0
+Creating and using multiple threads\
+\pard\tx720\tx1080\pardeftab720\li1080\fi-1080\partightenfactor0
+\ls7\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}\expnd0\expndtw0\kerning0
+http://www.yolinux.com/TUTORIALS/LinuxTutorialPosixThreads.html
+\f2 \
+\pard\tx20\tx360\pardeftab720\li360\fi-360\partightenfactor0
+\ls7\ilvl0
+\f7 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}
+\f1 \expnd0\expndtw0\kerning0
+Using POSIX shared memory\
+\pard\tx720\tx1080\pardeftab720\li1080\fi-1080\partightenfactor0
+\ls7\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}\expnd0\expndtw0\kerning0
+http://www.cs.cf.ac.uk/Dave/C/node27.html\
+\pard\tx20\tx360\pardeftab720\li360\fi-360\partightenfactor0
+\ls7\ilvl0
+\f7 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}
+\f1 \expnd0\expndtw0\kerning0
+Textbook\
+\pard\tx720\tx1080\pardeftab720\li1080\fi-1080\partightenfactor0
+\ls7\ilvl1\cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}\expnd0\expndtw0\kerning0
+Operating System Concepts, Silberschatz and Galvin\
+\pard\tx20\tx360\pardeftab720\li360\fi-360\partightenfactor0
+\ls7\ilvl0
+\f7 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}
+\f1 \expnd0\expndtw0\kerning0
+Creating .tar files in Linux
+\f3 \
+\pard\tx720\tx1080\pardeftab720\li1080\fi-1080\partightenfactor0
+\ls7\ilvl1
+\f1 \cf2 \kerning1\expnd0\expndtw0 {\listtext	o	}\expnd0\expndtw0\kerning0
+https://www.howtogeek.com/248780/how-to-compress-and-extract-files-using-the-tar-command-on-linux/
+\f3 \
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf2 \
+}
