@@ -15,6 +15,9 @@ while(current != NULL)
 }
 return counter;
 }
+/*
+compare function for quick sort
+*/
 int word_compare(const void* a, const void* b)
 {
    char* const  * word_a = ( char *const*)a;
@@ -23,6 +26,10 @@ int word_compare(const void* a, const void* b)
   return strcmp(*word_a, *word_b);
 
 }
+/*
+sorts all of the StringLinkedList stricts linked to head
+This uses the qsort() function from the C-Standard Library
+*/
 void word_sort(StringLinkedList* head)
 {
   int token_count =   count_strings(head);
@@ -131,11 +138,12 @@ void insertString(char* String, StringLinkedList** head)
 /*
 This splits Data into tokens using delimeter
 Every token is stored in token_list
+This also indexes the tokens into different ranges
+These range structs is what every thread in map looks at -- every thread gets an index for the specific range it is supposed to look at
 */
 void token_split(void* data)
 {
    token_split_data* this_data =   (token_split_data*) data;
-   // this_data->map_tag = map_tag;
    char* token = strtok(this_data->Data, this_data->delimeter);
    while (token!= NULL)
    {
@@ -149,21 +157,8 @@ void token_split(void* data)
    int  i = 0;
    while(i<this_data->token_range_list_size)
    {
-     printf("bin#%d: {%d, %d}", i+1, this_data->token_range_list[i].start, this_data->token_range_list[i].end );
-     print_strigs_at(*(this_data->token_list), this_data->token_range_list[i].start, this_data->token_range_list[i].end);
+     // printf("bin#%d: {%d, %d}", i+1, this_data->token_range_list[i].start, this_data->token_range_list[i].end );
+     print_strings_at(*(this_data->token_list), this_data->token_range_list[i].start, this_data->token_range_list[i].end);
      i++;
    }
 }
-
-// void map_tagger(void* data,int map_index , int thread_id, int num_maps )
-// {
-// int i = 0;
-// token_split_data* map_data  = (token_split_data*)(data);
-// // while(i<num_maps)
-// map_data->data_distribute_maps[map_index].tag_index = map_index;
-// map_data->data_distribute_maps[map_index].thread_id = thread_id;
-// printf("tag:(thread: %d, tag:  %d)\n",map_data->data_distribute_maps[map_index].thread_id, map_data->data_distribute_maps[map_index].tag_index );
-// // i++;
-//
-// return;
-// }

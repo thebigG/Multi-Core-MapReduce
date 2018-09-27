@@ -6,11 +6,11 @@ map dispatches num_maps threads which call data_routine.
 #include"map_reduce.h"
 #include<pthread.h>
 void* map(void *(data_parser) (void*), void* data, void* (data_routine) (void*), int num_maps)
-{
+{ 
   pthread_t map_threads[num_maps];
 
   data_parser(data);
-  map_index maps[num_maps];
+   map_index* maps  = malloc(sizeof(map_index) *num_maps);
   int i = 0;
   while(i<num_maps)
   {
@@ -26,6 +26,6 @@ void* map(void *(data_parser) (void*), void* data, void* (data_routine) (void*),
   i++;
   }
 
-
+  // sleep(1);
   return 0;
 }

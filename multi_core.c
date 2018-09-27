@@ -17,8 +17,8 @@ int main(int argc, char** argv)
    "–-impl [procs, threads] --maps num_maps –-reduces num_reduces --input infile –-output outfile");
    exit(0);
  }
- printf("Are you running??");
- printf("file: %s\n", argv[9]);
+ // printf("Are you running??");
+ // printf("file: %s\n", argv[9]);
 char* input_file = argv[9];
 char* routine  = argv[2];
 char* implementation  = argv[4];
@@ -44,9 +44,6 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   token_split_data* word_data = malloc(sizeof(token_split_data));
   word_data->Data = data;
   word_data->delimeter = " .,;:!-";
-
-
-
   /**
   The next two lines are VERY important
   If you do not do this when using token_split_data, things will break!
@@ -55,12 +52,8 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   (word_data->token_list) = malloc(sizeof(StringLinkedList*));
   *(word_data->token_list) = NULL;
   word_data->token_range_list_size = num_maps;
-  // printf("num_maps: %s\n", argv[6]);
-  // token_bin bins[num_maps];
-  // word_data->token_bin_list = bins ;
   map(token_split, word_data, count_words, num_maps);
 }
-sleep(1);
-// free(data);
+ free(data);
 return 0;
 }
