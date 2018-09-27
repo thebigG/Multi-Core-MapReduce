@@ -12,8 +12,8 @@ clean:
 %.o: %.c
 	gcc $(FLAGS) -c $<
 
- io_api.o: io_api.h
- multi_core.o: io_api.h map_reduce.h word_count.h
- word_count.c: word_count.h
- core_utility.c:  core_utility.h
+ core_utility.c:  core_utility.h core_utility.h
+ io_api.c: io_api.h
+ multi_core.c: io_api.h map_reduce.h word_count.h
+ word_count.c: word_count.h core_utility.h
  map_reduce.c: map_reduce.h

@@ -41,19 +41,23 @@ if(reader(input_fd, data, input_file_szie, input_file_szie) == -1)
 if(strcmp(WORDCOUNT, routine) ==  0)
 {
   data[input_file_szie] = '\0';
-  token_split_data* word_data = malloc(sizeof(token_split_data));
+  token_split_object* word_data = malloc(sizeof(token_split_object));
   word_data->Data = data;
-  word_data->delimeter = " .,;:!-";
+  // printf("Data:%s\n", word_data->Data);
+  word_data->delimiter = " .,;:!-";
+  // printf("delimiter: %s\n", word_data->delimiter);
   /**
   The next two lines are VERY important
-  If you do not do this when using token_split_data, things will break!
+  If you do not do this when using token_split_object, things will break!
   So just remember to malloc() AND NULL token_list before doing stuff with it :)
   **/
   (word_data->token_list) = malloc(sizeof(StringLinkedList*));
   *(word_data->token_list) = NULL;
   word_data->token_range_list_size = num_maps;
+  word_data->token_range_list = malloc(sizeof(range) * num_maps);
   map(token_split, word_data, count_words, num_maps);
 }
- free(data);
+sleep(3);
+ //free(data);
 return 0;
 }

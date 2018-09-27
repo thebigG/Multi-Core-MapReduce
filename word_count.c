@@ -55,21 +55,80 @@ void word_sort(StringLinkedList* head)
    }
 
 }
+//Assume that the strings linked to head are sorted
+
+
+StringLinkedList* go_to_string(StringLinkedList*  head, int offset)
+{
+  StringLinkedList* current = head;
+  int i = 0;
+  while(i<offset)
+  {
+    current = current->next;
+    i++;
+  }
+  return current;
+}
+
+int count_word(StringLinkedList* start_token, int offset)
+{
+int  i = 0;
+int word_count = 0;
+StringLinkedList* current = start_token;
+while(strcmp(start_token->String, current->String) == 0 && i<offset)
+{
+word_count++;
+i++;
+// printf("looking at (before) word:%s\n", );
+current = current->next;
+}
+return word_count;
+}
 
 int count_words(void* count_words_data )
 {
   map_index* map_data = (map_index* )count_words_data;
   int range_index  = map_data->index;
-  token_split_data* token_data   = (token_split_data*)(map_data->data);
+
+  token_split_object* token_data   = (token_split_object*)(map_data->data);
   StringLinkedList* words  = *token_data->token_list;
   int start = token_data->token_range_list[range_index].start;
   int end = token_data->token_range_list[range_index].end;
+  int token_count =  (end -start);
+   printf("{start:%d end:%d}\n", start, end);
+  StringLinkedList* current = words;
+  int  j = 0;
+ while(j<start)
+ {
+   current = current->next;
+   j++;
+ }
+  // map_data->pairs = malloc(sizeof(key_value_link) *token_count);
   int i = 0;
-  while(i<3)
+   j =0;
+  int current_word_count = 0;
+  int offset  = token_count;
+  // printf("starting word: %s\n", current->String);
+  while(i<token_count)
   {
-    printf("ID:%d, start:%d, end:%d  \n",pthread_self(), start, end);
-    i++;
+
+     // printf(" before offset: %d\n ", offset);
+    current_word_count = count_word(current,offset );
+    printf("word: %s count:%d \n",current->String, current_word_count  );
+    printf("{start:%d end:%d}\n", start, end);
+    offset = current_word_count;
+    j = 0;
+    while(j<offset)
+    {
+      current = current->next;
+      j++;
+    }
+    // printf("before i: %d\n", i);
+    i += offset;
+    // printf("after i: %d\n", i);
+
   }
+
   return 0;
 }
 
@@ -143,21 +202,22 @@ These range structs is what every thread in map looks at -- every thread gets an
 */
 void token_split(void* data)
 {
-   token_split_data* this_data =   (token_split_data*) data;
-   char* token = strtok(this_data->Data, this_data->delimeter);
+   token_split_object* this_data =   (token_split_object*) data;
+   char* token = strtok(this_data->Data, this_data->delimiter);
    while (token!= NULL)
    {
-     // printf("token:%s:\n", token);
+     printf("token:%s:\n", token);
      insertString(token, this_data->token_list);
-     token  = strtok(NULL, this_data->delimeter);
+     token  = strtok(NULL, this_data->delimiter);
    }
     word_sort(*(this_data->token_list));
     int token_count = count_strings(*this_data->token_list);
-   init_distribute_data(this_data, token_count,this_data->token_range_list_size );
+   init_distribute_data(this_data->token_range_list, token_count,this_data->token_range_list_size );
    int  i = 0;
+   printf("string_count: %d\n", token_count);
    while(i<this_data->token_range_list_size)
    {
-     // printf("bin#%d: {%d, %d}", i+1, this_data->token_range_list[i].start, this_data->token_range_list[i].end );
+       printf("bin#%d: {%d, %d}", i+1, this_data->token_range_list[i].start, this_data->token_range_list[i].end );
      print_strings_at(*(this_data->token_list), this_data->token_range_list[i].start, this_data->token_range_list[i].end);
      i++;
    }

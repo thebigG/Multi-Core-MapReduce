@@ -29,6 +29,7 @@ while(i<start)
   current = current->next;
   i++;
 }
+
 while(start<end)
 {
   printf("%s\n", current->String);
@@ -40,9 +41,10 @@ return;
 
 
 
-void init_distribute_data(token_split_data* word_data, int data_tally, int bins )
+void init_distribute_data(range* data_range, int data_tally, int bins )
 {
   printf("init_distribute_data %d/%d\n", data_tally, bins);
+
   if (data_tally% bins == 0)
   {
     int interval = data_tally/bins;
@@ -52,12 +54,38 @@ void init_distribute_data(token_split_data* word_data, int data_tally, int bins 
     printf("Interval: %d\n", interval);
     while(i<bins)
     {
-      word_data->token_range_list[i].start = start;
+      data_range[i].start = start;
       // printf("start on init:%d\n", word_data->token_range_list[i].start);
-      word_data->token_range_list[i].end = (start+ interval) -(1);
+      data_range[i].end = (start+ interval) -(1);
       // printf("end on init:%d\n", word_data->token_range_list[i].end);
       start += interval;
         i++;
+    }
+
+  }
+  else
+  {
+    int interval = data_tally/bins;
+    int i = 0;
+    int start  = 0;
+    int end = 0;
+    printf("Interval: %d\n", interval);
+    while(i<bins)
+    {
+      data_range[i].start = start;
+      // printf("start on init:%d\n", word_data->token_range_list[i].start);
+      if (i+1 == bins)
+      {
+        data_range[i].end = data_tally-1;
+      }
+      else
+      {
+        data_range[i].end = (start+ interval) -(1);
+      }
+
+      // printf("end on init:%d\n", word_data->token_range_list[i].end);
+      start += interval;
+      i++;
     }
 
   }
