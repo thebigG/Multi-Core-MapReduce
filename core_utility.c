@@ -6,6 +6,15 @@
 /*
 Prints all of the strings linked to head
 */
+
+
+char* toString(int Num)
+{
+  char* String  = malloc(sizeof(char) * 12);
+  sprintf(String, "%d", Num);
+  // printf("toString: %s\n", String);
+  return String;
+}
 void print_strings(StringLinkedList* head)
 {
   while(head != NULL)

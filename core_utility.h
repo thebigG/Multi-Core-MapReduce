@@ -2,8 +2,9 @@
 #define CORE_UTILITY
 #include <stdlib.h>
 #include "word_count.h"
-
-/*
+#define TRUE 1
+#define FALSE 0
+/* 
 DO NOT delete these forward declarations
 */
 typedef struct StringLinkedList StringLinkedList; //forward declaration to tell the compiler that StringLinkedList type exists

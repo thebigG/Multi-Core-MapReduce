@@ -4,10 +4,16 @@
 #include "word_count.h"
 #include "core_utility.h"
 #include "map_reduce.h"
+extern int map_count;
+void parse_string(char* string)
+{
+  return;
+}
 int count_strings(StringLinkedList* head)
 {
 StringLinkedList* current = head;
 int counter = 0;
+
 while(current != NULL)
 {
   counter += 1;
@@ -55,7 +61,39 @@ void word_sort(StringLinkedList* head)
    }
 
 }
-//Assume that the strings linked to head are sorted
+
+// void word_sort(void* word_map)
+// {
+//   map_index* map = (map_index*) word_map;
+//   token_split_object* token_data = (token_split_object*)word_map->data;
+//   StringLinkedList token_head = token_data->token_list;
+//   int range_index =   map->index;
+//   int start = token_data->token_range_list[range_index]->start;
+//   int end = token_data->token_range_list[range_index]->end;
+//   int token_count = end-start;
+//   char* list[token_count];
+//   StringLinkedList*  temp_pointer = go_to_string(token_head, start);
+//   int i = 0;
+//   while( i< end)
+//   {
+//     list[i] = temp_pointer->String;
+//     // printf("list:%s\n", list[i]);
+//     temp_pointer = temp_pointer->next;
+//     i++;
+//   }
+//
+//    qsort(list, token_count ,sizeof(char*), word_compare );
+//    i =0;
+//    temp_pointer = head;
+//    while(temp_pointer!= NULL)
+//    {
+//      temp_pointer->String = list[i];
+//      temp_pointer = temp_pointer->next;
+//      i++;
+//    }
+//    map_data->are_you_done = TRUE;
+//
+// }
 
 
 StringLinkedList* go_to_string(StringLinkedList*  head, int offset)
@@ -89,13 +127,12 @@ int count_words(void* count_words_data )
 {
   map_index* map_data = (map_index* )count_words_data;
   int range_index  = map_data->index;
-
-  token_split_object* token_data   = (token_split_object*)(map_data->data);
+  token_split_object* token_data   = (token_split_object*)(map_data->mapper_data);
   StringLinkedList* words  = *token_data->token_list;
   int start = token_data->token_range_list[range_index].start;
   int end = token_data->token_range_list[range_index].end;
   int token_count =  (end -start);
-   printf("{start:%d end:%d}\n", start, end);
+   // printf("{start:%d end:%d}\n", start, end);
   StringLinkedList* current = words;
   int  j = 0;
  while(j<start)
@@ -103,7 +140,10 @@ int count_words(void* count_words_data )
    current = current->next;
    j++;
  }
-  // map_data->pairs = malloc(sizeof(key_value_link) *token_count);
+  map_data->pairs = malloc(sizeof(key_value_link) * token_count);
+
+   key_value_link* current_pair = map_data->pairs;
+
   int i = 0;
    j =0;
   int current_word_count = 0;
@@ -114,8 +154,14 @@ int count_words(void* count_words_data )
 
      // printf(" before offset: %d\n ", offset);
     current_word_count = count_word(current,offset );
-    printf("word: %s count:%d \n",current->String, current_word_count  );
-    printf("{start:%d end:%d}\n", start, end);
+    current_pair->key = malloc(sizeof(char) * (strlen(current->String) + 1 ) );
+    strcpy( current_pair->key, current->String);
+    current_pair->value = current_word_count;
+
+    // printf("word: %s count:%d \n",current_pair->key, current_word_count  );
+    // printf("{start:%d end:%d}\n", start, end);
+
+
     offset = current_word_count;
     j = 0;
     while(j<offset)
@@ -124,11 +170,26 @@ int count_words(void* count_words_data )
       j++;
     }
     // printf("before i: %d\n", i);
+
     i += offset;
+    if(i>=token_count)
+    {
+      current_pair->next = NULL;
+    }
+    else
+    {
+    current_pair->next = malloc(sizeof(key_value_link));
+    current_pair = current_pair->next;
+    }
     // printf("after i: %d\n", i);
 
   }
 
+  // write_map(1, map_data->pairs, parse_string, strlen );
+  map_data->are_you_done = TRUE;
+  map_count++;
+  printf("current map_count:%d\n" ,map_count);
+  // if map_count>
   return 0;
 }
 

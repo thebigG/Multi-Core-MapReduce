@@ -7,7 +7,6 @@ if (stat(file_path, &data ) == -1)
 {
   return -1;
 }
-printf("size on server side: %d\n", data.st_size);
 return data.st_size;
 }
 int writer(int file_descriptor, char* buffer, int byte_goal, int write_rate)

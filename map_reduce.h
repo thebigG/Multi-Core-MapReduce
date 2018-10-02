@@ -1,6 +1,7 @@
 #ifndef MAP_REDUCE
 #define MAP_REDUCE
 #include "word_count.h"
+extern int map_count;
 typedef struct value_key_link
 {
 void* key;
@@ -15,10 +16,14 @@ typedef struct
 } map_tag;
 typedef struct
 {
-void* data;
+void* mapper_data;
 key_value_link* pairs;
 int index;
+int pairs_count;
+int are_you_done;
+int map_count;
 } map_index;
 void* map(void *(data_parser) (void*), void* data, void* (data_routine) (void*), int );
+char* toString(int);
 int reduce();
 #endif

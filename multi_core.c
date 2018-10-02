@@ -10,7 +10,7 @@
 int main(int argc, char** argv)
 {
 
- if (argc!=12)
+ if (argc!=13)
  {
    printf("Ivalid arguments: %d\n", argc);
    printf("mapred –-app [wordcount, sort] "
@@ -19,10 +19,10 @@ int main(int argc, char** argv)
  }
  // printf("Are you running??");
  // printf("file: %s\n", argv[9]);
-char* input_file = argv[9];
+char* input_file = argv[10];
 char* routine  = argv[2];
 char* implementation  = argv[4];
-int num_maps  = atoi(argv[5]);
+int num_maps  = atoi(argv[6]);
 int  num_reduces  = atoi(argv[8]);
 char* output_file = argv[8];
 int input_file_szie =  get_filesize(input_file);
@@ -38,6 +38,8 @@ if(reader(input_fd, data, input_file_szie, input_file_szie) == -1)
   perror("reader");
   return -1;
 }
+printf("num_maps: %d\n",num_maps );
+printf("program: %s\n",routine );
 if(strcmp(WORDCOUNT, routine) ==  0)
 {
   data[input_file_szie] = '\0';
@@ -57,7 +59,7 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   word_data->token_range_list = malloc(sizeof(range) * num_maps);
   map(token_split, word_data, count_words, num_maps);
 }
-sleep(3);
+// sleep(3);
  //free(data);
 return 0;
 }
