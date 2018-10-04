@@ -13,7 +13,9 @@ key_value_link* reduced_links = NULL;
 
 //NOTE : lowercase everthing
 int map_count = 0;
+int reduce_count = 0;
 void* current_key = NULL;
+
 key_value_link* goto_end_link(key_value_link* head )
 {
   while(head->next!=NULL)
@@ -52,30 +54,40 @@ int write_map(int file_descriptor, key_value_link* pairs,void (parse_key_routine
  }
  return 0;
 }
-key_value_link* map(void *(data_parser) (void*), void* map_data, void* (mapper) (void*), int num_maps)
+key_value_link* map(void *(context_parser) (void*), void* context, void* (mapper) (void*), int num_maps)
 {
   pthread_t map_threads[num_maps];
-  data_parser(map_data);
-  map_index* maps  = malloc(sizeof(map_index) *(num_maps + 1));
-  int i = 0;
+
+  map_index* maps  = malloc(sizeof(map_index) * num_maps);
+  // int i = 0;
+  // while(i<num_maps)
+  // {
+  //
+  // }
+  int context_list_count = context_parser(context);
+  int  i  =0;
+  range* ranges = malloc(sizeof(range) * context_list_count);
+  init_distribute_data(ranges ,context_parser(context), num_maps);
   while(i<num_maps)
   {
     printf("i value:%d\n", i);
-    // pthread_detach(map_threads[i]);
-    maps[i].mapper_data = map_data;
+    pthread_detach(map_threads[i]);
+    maps[i].context_data = context;
     maps[i].index  = i;
+    maps[i].context_range = &ranges[i];
     maps[i].are_you_done = FALSE;
     i++;
   }
   // &(maps[i]) = NULL;
   i = 0;
+
+
   while(i<num_maps)
   {
     // printf("are you running?");
   pthread_create(&(map_threads[i]), NULL, mapper,  &maps[i] );
   i++;
   }
-  // pthread_cond_wait( &condition_var, &count_mutex );
   //block until all map routines are done
   while(map_count<num_maps);
 
@@ -105,36 +117,42 @@ key_value_link* map(void *(data_parser) (void*), void* map_data, void* (mapper) 
   // printf("final pairs count: %d\n", final_pair_count);
 
   // printf("done!");
+  indexed_map* return_map  = malloc(sizeof(indexed_map));
+  return_map->pairs = links[0];
+  return_map->pairs_count = final_pair_count;
 
-
-  return links[i];
+  return return_map;
 }
-void update_key_value(void(key_compare) (void*), void* key)
-{
-
-}
+// void update_key_value(void(key_compare) (void*), void* key)
+// {
+//
+// }
 //iterate through the key_value_links inside map and add them to reduced_links
-void reduce_helper(map_index* map)
+void reduce_helper(void* reduced_data )
 {
-int num_key_val_links = map.pairs_count;
-int i =0;
-while(i<num_key_val_links)
-{
-
-}
+reduce_index* reduce_indecies=  (reduce_index*) reduced_data;
+printf("Tid: %d start: %d\nend:%d\n", pthread_self(), reduce_indecies->reduced_range->start, reduce_indecies->reduced_range->end);
+reduce_count++;
+return;
 }
 
-void* reduce(key_value_link* links, int num_reduces, void(key_compare) (void*))
+void* reduce(key_value_link* links, int links_list_size, int num_reduces, int (key_compare) (void*))
 {
-  int key_value_links = 0;
-  int  i = 0;
-  while(i<num_maps)
+range* reduce_ranges = malloc(sizeof(range) * num_reduces)  ;
+pthread_t reduce_threads[num_reduces];
+init_distribute_data(reduce_ranges, links_list_size, num_reduces);
+reduce_index* reduce_indecies  = malloc(sizeof(reduce_index) * num_reduces);
+int i = 0;
+while(i<num_reduces)
   {
+    reduce_indecies[i].pairs = links;
+    reduce_indecies[i].reduced_range = &reduce_ranges[i];
+    pthread_detach(reduce_threads[i]);
+    pthread_create(&reduce_threads ,NULL,reduce_helper, &reduce_indecies[i] );
+    i++;
+  }
+  while(reduce_count<num_reduces)
+  i++;
+  printf("done with reduce!\n");
 
-  }
-  head = maps;
-  int are_you_done  = 0;
-  while(head!=NULL)
-  {
-  }
 }

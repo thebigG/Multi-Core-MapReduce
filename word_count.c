@@ -134,13 +134,13 @@ return word_count;
 int count_words(void* count_words_data )
 {
   map_index* map_data = (map_index* )count_words_data;
-  int range_index  = map_data->index;
-  token_split_object* token_data   = (token_split_object*)(map_data->mapper_data);
+  // int range_index  = map_data->index;
+  token_split_object* token_data   = (token_split_object*)(map_data->context_data);
   StringLinkedList* words  = *token_data->token_list;
-  int start = token_data->token_range_list[range_index].start;
-  int end = token_data->token_range_list[range_index].end;
+  int start = map_data->context_range->start;
+  int end = map_data->context_range->end;
   int token_count =  (end -start);
-   // printf("{start:%d end:%d}\n", start, end);
+   printf("{start:%d end:%d}\n", start, end);
   StringLinkedList* current = words;
   int  j = 0;
  while(j<start)
@@ -272,7 +272,7 @@ Every token is stored in token_list
 This also indexes the tokens into different ranges
 These range structs is what every thread in map looks at -- every thread gets an index for the specific range it is supposed to look at
 */
-void token_split(void* data)
+int token_split(void* data)
 {
    token_split_object* this_data =   (token_split_object*) data;
    char* token = strtok(this_data->Data, this_data->delimiter);
@@ -284,14 +284,15 @@ void token_split(void* data)
    }
     word_sort(*(this_data->token_list));
     int token_count = count_strings(*this_data->token_list);
-    printf("token_count: %d\n", token_count);
-   init_distribute_data(this_data->token_range_list, token_count,this_data->token_range_list_size );
-   int  i = 0;
-   printf("string_count: %d\n", token_count);
-   while(i<this_data->token_range_list_size)
-   {
-       printf("bin#%d: {%d, %d}", i+1, this_data->token_range_list[i].start, this_data->token_range_list[i].end );
-     print_strings_at(*(this_data->token_list), this_data->token_range_list[i].start, this_data->token_range_list[i].end);
-     i++;
-   }
+   //  printf("token_count: %d\n", token_count);
+   // init_distribute_data(this_data->token_range_list, token_count,this_data->token_range_list_size );
+   // int  i = 0;
+   // printf("string_count: %d\n", token_count);
+   // while(i<this_data->token_range_list_size)
+   // {
+   //     printf("bin#%d: {%d, %d}", i+1, this_data->token_range_list[i].start, this_data->token_range_list[i].end );
+   //   print_strings_at(*(this_data->token_list), this_data->token_range_list[i].start, this_data->token_range_list[i].end);
+   //   i++;
+   // }
+   return token_count;
 }

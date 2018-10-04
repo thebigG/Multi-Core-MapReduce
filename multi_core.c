@@ -55,13 +55,17 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   **/
   (word_data->token_list) = malloc(sizeof(StringLinkedList*));
   *(word_data->token_list) = NULL;
-  word_data->token_range_list_size = num_maps;
-  word_data->token_range_list = malloc(sizeof(range) * num_maps);
-  key_value_link* pairs =  map(token_split, word_data, count_words, num_maps);
+  // word_data->token_range_list_size = num_maps;
+  // word_data->token_range_list = malloc(sizeof(range) * num_maps);
+  // map_index* maps = malloc(sizeof(map_index) * num_maps);
+  // maps->mapper_data = word_data;
+  indexed_map* map_index =  map(token_split, word_data, count_words, num_maps);
   int i = 0;
   while(i<10000)
   i++;
-  write_map(1,pairs, parse_string, strlen );
+  // write_map(1,pairs, parse_string, strlen );
+  printf("command line num_reduces: %d\n", num_reduces);
+  reduce(map_index->pairs, map_index->pairs_count,num_reduces, strcmp );
 }
  //free(data);
 return 0;

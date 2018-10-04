@@ -25,14 +25,13 @@ typedef struct token_split_object
 char* Data;
 StringLinkedList** token_list;
 int token_range_list_size;
-range* token_range_list;
 char* delimiter;
 }token_split_object;
 
 void initStringLinkedList(char* , StringLinkedList** );
 void insertString(char*, StringLinkedList** );
 char* getSubStr(char* , int , int );
-void token_split(void*);
+int token_split(void*);
 int count_word(StringLinkedList* , int );
 StringLinkedList* go_to_string(StringLinkedList*  , int );
 int count_words(void*  );
