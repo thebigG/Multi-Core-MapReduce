@@ -39,4 +39,5 @@ int count_words(void*  );
 int word_compare(const void* , const void* );
 int count_strings(StringLinkedList*);
 void map_tagger(void* , int, int , int  );
+void parse_string(char*);
 #endif

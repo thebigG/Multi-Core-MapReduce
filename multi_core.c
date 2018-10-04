@@ -57,9 +57,12 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   *(word_data->token_list) = NULL;
   word_data->token_range_list_size = num_maps;
   word_data->token_range_list = malloc(sizeof(range) * num_maps);
-  map(token_split, word_data, count_words, num_maps);
+  key_value_link* pairs =  map(token_split, word_data, count_words, num_maps);
+  int i = 0;
+  while(i<10000)
+  i++;
+  write_map(1,pairs, parse_string, strlen );
 }
-// sleep(3);
  //free(data);
 return 0;
 }

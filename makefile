@@ -6,7 +6,7 @@ $(TARGET): io_api.o multi_core.o map_reduce.o word_count.o core_utility.o
 		gcc $(FLAGS) -o $@ $^
 
 
-clean:
+clean: 
 	rm -f $(TARGET) $(OBJECTS)
 
 %.o: %.c
