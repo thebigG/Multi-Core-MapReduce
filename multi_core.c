@@ -124,7 +124,7 @@ int main(int argc, char** argv)
    int i = 0;
    while(i<10000)
    i++;
-// write_map(1,pairs, parse_string, strlen );
+   write_map(1,map_index->pairs, parse_string, strlen);
 
 // printf("command line num_reduces: %d\n", num_reduces);
 
