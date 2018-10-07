@@ -63,9 +63,10 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   int i = 0;
   while(i<10000)
   i++;
-  // write_map(1,pairs, parse_string, strlen );
+  write_map(1,map_index->pairs, parse_string, strlen );
   printf("command line num_reduces: %d\n", num_reduces);
-  reduce(map_index->pairs, map_index->pairs_count,num_reduces, strcmp );
+  // sleep(2);
+  // reduce(map_index->pairs, map_index->pairs_count,num_reduces, strcmp );
 }
  //free(data);
 return 0;

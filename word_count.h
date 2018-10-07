@@ -32,11 +32,12 @@ void initStringLinkedList(char* , StringLinkedList** );
 void insertString(char*, StringLinkedList** );
 char* getSubStr(char* , int , int );
 int token_split(void*);
-int count_word(StringLinkedList* , int );
+int count_word(char*  ,StringLinkedList* , int , int );
 StringLinkedList* go_to_string(StringLinkedList*  , int );
 int count_words(void*  );
 int word_compare(const void* , const void* );
 int count_strings(StringLinkedList*);
 void map_tagger(void* , int, int , int  );
 void parse_string(char*);
+int word_count_strcmp(void* , void* );
 #endif

@@ -1,9 +1,11 @@
 #ifndef MAP_REDUCE
 #define MAP_REDUCE
 #include "word_count.h"
+#include "pthread.h"
 extern int map_count;
 extern int reduce_count;
 extern void* current_key; //used by reduce
+extern pthread_mutex_t count_mutex;
 typedef struct value_key_link
 {
 void* key;
@@ -35,6 +37,7 @@ typedef struct reduce_index
 {
   key_value_link* pairs;
   range* reduced_range;
+  int num_reduces;
   int (*key_compare) (void*);
 } reduce_index;
 key_value_link* map(void *(data_parser) (void*), void* data, void* (data_routine) (void*), int );
@@ -42,4 +45,5 @@ char* toString(int);
 void link_heads(key_value_link** , int   );
 key_value_link* goto_end_link(key_value_link*  );
 void* reduce(key_value_link* , int , int , int (key_compare) (void*));
+int has_key(void* ,key_value_link* , int (key_compare) (void*, void*) );
 #endif
