@@ -128,7 +128,7 @@ int main(int argc, char** argv)
 
 // printf("command line num_reduces: %d\n", num_reduces);
 
-   reduce(map_index->pairs, map_index->pairs_count,num_reduces, strcmp );
+//  reduce(map_index->pairs, map_index->pairs_count,num_reduces, strcmp );
  }
 
  //free(data);

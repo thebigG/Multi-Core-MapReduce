@@ -38,8 +38,8 @@ while(i<start)
   current = current->next;
   i++;
 }
-
-while(start<end)
+printf("in function range{%d,%d}\n", start, end);
+while(start<=end)
 {
   printf("%s\n", current->String);
   current = current->next;

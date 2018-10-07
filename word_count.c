@@ -5,9 +5,16 @@
 #include "core_utility.h"
 #include "map_reduce.h"
 extern int map_count;
+extern pthread_mutex_t count_mutex;
 void parse_string(char* string)
 {
   return;
+}
+int word_count_strcmp(void* key1, void* key2)
+{
+  printf("word_count_strcmp: {%s, %s}\n", (char*)key1, (char*) key2);
+  perror("strcmp");
+  return strcmp((char*)key1, (char*) key2);
 }
 int count_strings(StringLinkedList* head)
 {
@@ -100,39 +107,57 @@ StringLinkedList* go_to_string(StringLinkedList*  head, int offset)
 {
   StringLinkedList* current = head;
   int i = 0;
-  while(i<offset)
+  while(i<=offset)
   {
     current = current->next;
     i++;
   }
+  // printf("FETCHING: %S\n");
   return current;
 }
 //This assumes that the StringLinkedList is sorted
-int count_word(StringLinkedList* start_token, int max)
+int count_word(char* word ,StringLinkedList* head, int start, int end)
 {
-int  i = 0;
+ int  i = 0;
 int word_count = 0;
-StringLinkedList* current = start_token;
-while(i<max)
+StringLinkedList* current = head;
+while(i<start)
 {
-if(strcmp(start_token->String, current->String) == 0)
+  current = current->next;
+  i++;
+}
+printf("jumpstart done!\n");
+while(start<=end)
+{
+  // printf("Stuck in a loop? {i:%d end:%d}\n current_string:%s, word:%s\n", i2 + 1, end, current->String, word);
+printf("looking at %s and %s\n", word, current->String );
+if(strcmp(word, current->String) == 0)
 {
 word_count++;
 }
 else
 {
+  printf("breaking point-->");
+  if(word_count == 0)
+  {
+    printf("ZERO:{%s,%s}\n", word, current->String );
+    word_count++;
+    // word
+  }
   break;
 }
+start++;
 current = current->next;
-i++;
 }
 // printf("looking at (before) word:%s\n", );
 // printf("**\nTid:%d\n offset: %d\n i:%d \n word: %s \n**", pthread_self(), offset, i,current->String );
 return word_count;
 }
 
+
 int count_words(void* count_words_data )
 {
+  // pthread_mutex_lock(&count_mutex);
   map_index* map_data = (map_index* )count_words_data;
   // int range_index  = map_data->index;
   token_split_object* token_data   = (token_split_object*)(map_data->context_data);
@@ -148,25 +173,27 @@ int count_words(void* count_words_data )
    current = current->next;
    j++;
  }
-   map_data->pairs = malloc(sizeof(key_value_link) * token_count);
-   map_data->pairs_count = 1;
+   map_data->pairs = malloc(sizeof(key_value_link));
+   map_data->pairs_count = 0;
+   map_data->pairs->key = NULL;
+    map_data->pairs->value = 0;
    key_value_link* current_pair = map_data->pairs;
-
+   key_value_link* head_pair  = current_pair;
    int i = 0;
    j =0;
   int current_word_count = 0;
   int offset  = token_count;
   // printf("starting word: %s\n", current->String);
   printf("starting offset: %d\n", offset);
-  while(i<token_count)
+  while(i<=token_count)
   {
-    // printf(" before offset: %d\n ", offset);
-    current_word_count = count_word(current,token_count );
+    current_word_count = count_word(current->String, words , start + i, end ) ;
     current_pair->key = malloc(sizeof(char) * (strlen(current->String) + 1 ) );
     strcpy( current_pair->key, current->String);
     current_pair->value = current_word_count;
-    // map_data->pairs_count += 1;
-    printf("Tid:%d \n{start:%d end:%d}  \n  word: %s count:%d \n",pthread_self(), start, end ,current_pair->key, current_word_count  );
+    map_data->pairs_count += 1;
+    printf("new link: {%s, %d}", current_pair->key, current_pair->value );
+    // printf("Tid:%d \n{start:%d end:%d}  \n  word: %s count:%d \n",pthread_self(), start, end ,current_pair->key, current_word_count  );
      // printf("{start:%d end:%d}\n", start, end);
 
 
@@ -177,29 +204,32 @@ int count_words(void* count_words_data )
       current = current->next;
       j++;
     }
-    // printf("before i: %d\n", i);
-
+     // printf("before i: %d\n", i);
     i += current_word_count;
-    if(i>=token_count)
+
+    printf("{token_count:%d, i:%d}\n", token_count, i);
+    if(i>token_count)
     {
       current_pair->next = NULL;
+      printf("NULL next for %s\n", current_pair->key);
     }
     else
     {
     current_pair->next = malloc(sizeof(key_value_link));
     current_pair = current_pair->next;
     }
-    // printf("after i: %d\n", i);
+     printf("after i: %d\n", i);
 
   }
 
   // write_map(1, map_data->pairs, parse_string, strlen );
   map_data->are_you_done = TRUE;
-  map_count++;
   printf("current map_count:%d\n" ,map_count);
   printf("token_count: %d\n", token_count);
-  map_data->pairs_count = token_count + 1;
+  // map_data->pairs_count = token_count + 1;
   printf("pair_count: %d\n",map_data->pairs_count);
+  map_count++;
+  // pthread_mutex_unlock(&count_mutex);
   // if map_count>
   return 0;
 }
@@ -290,8 +320,7 @@ int token_split(void* data)
    // printf("string_count: %d\n", token_count);
    // while(i<this_data->token_range_list_size)
    // {
-   //     printf("bin#%d: {%d, %d}", i+1, this_data->token_range_list[i].start, this_data->token_range_list[i].end );
-   //   print_strings_at(*(this_data->token_list), this_data->token_range_list[i].start, this_data->token_range_list[i].end);
+       // print_strings_at(*(this_data->token_list), this_data->token_range_list[i].start, this_data->token_range_list[i].end);
    //   i++;
    // }
    return token_count;
