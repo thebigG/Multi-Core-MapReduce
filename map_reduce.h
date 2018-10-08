@@ -45,7 +45,7 @@ typedef struct reduce_index
   int num_reduces;
   int (* key_compare) (void*, void*);
 } reduce_index;
-key_value_link* map(void *(data_parser) (void*), void* data, void* (data_routine) (void*), int );
+key_value_link* map(void *(context_parser) (void*), void* , void* (mapper) (void*), void* (compare)(void*)  ,int );
 char* toString(int);
 void link_heads(key_value_link** , int   );
 key_value_link* goto_end_link(key_value_link*  );

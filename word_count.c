@@ -10,6 +10,11 @@ void parse_string(char* string)
 {
   return;
 }
+int link_count_strcmp(const  void* link1, const void* link2)
+{
+  return strcmp((char* const*)((key_value_link*) link1)->key,(char* const*)  ( (key_value_link*)  link2)->key );
+
+}
 int word_count_strcmp(void* key1, void* key2)
 {
   // printf("word_count_strcmp: {%s, %s}\n", (char*)key1, (char*) key2);
@@ -197,6 +202,10 @@ int count_words(void* count_words_data )
   while(i<=token_count)
   {
     current_word_count = count_word(current->String, words , start + i, end ) ;
+    if (strcmp(current->String, "many"  ) == 0)
+    {
+      printf("many problem count: %d\n", current_word_count);
+    }
     current_pair->key = malloc(sizeof(char) * (strlen(current->String) + 1 ) );
     strcpy( current_pair->key, current->String);
     current_pair->value = current_word_count;

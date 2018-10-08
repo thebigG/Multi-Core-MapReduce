@@ -31,13 +31,14 @@ int input_fd  = open(input_file, O_RDONLY);
 if(input_fd == -1)
 {
   perror("open");
-  return -1; 
+  return -1;
 }
 if(reader(input_fd, data, input_file_szie, input_file_szie) == -1)
 {
   perror("reader");
   return -1;
 }
+toLowerCase(data);
 printf("num_maps: %d\n",num_maps );
 printf("program: %s\n",routine );
 if(strcmp(WORDCOUNT, routine) ==  0)
@@ -59,18 +60,18 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   // word_data->token_range_list = malloc(sizeof(range) * num_maps);
   // map_index* maps = malloc(sizeof(map_index) * num_maps);
   // maps->mapper_data = word_data;
-  indexed_map* map_index =  map(token_split, word_data, count_words, num_maps);
+  indexed_map* map_index =  map(token_split, word_data, count_words, parse_string ,num_maps);
   int i = 0;
   while(i<10000)
   i++;
   write_map(1,map_index->pairs, parse_string, strlen );
   printf("command line num_reduces: %d\n", num_reduces);
   // sleep(2);
- key_value_link* reduced_links  =   reduce(map_index->pairs, map_index->pairs_count,num_reduces, word_count_strcmp );
+ key_value_link* reduced_links  =   reduce(map_index->pairs, map_index->pairs_count,num_reduces, word_count_strcmp  );
    printf("reduced links:\n" );
    write_map(1, reduced_links, parse_string, strlen  );
 }
-else if(strcmp(WORDCOUNT, routine) ==  0)
+else if(strcmp(SORT, routine) ==  0)
 {
 
 }

@@ -3,6 +3,17 @@
 #include "core_utility.h"
 #include "word_count.h"
 
+
+void toLowerCase(char* text)
+{
+  char* current = text;
+  while(*current)
+  {
+    *current = tolower(*current);
+    current++;
+  }
+}
+
 /*
 Prints all of the strings linked to head
 */

@@ -15,6 +15,47 @@ int map_count = 0;
 int reduce_count = 0;
 void* global_current_key = NULL;
 
+
+int key_compare(const void *key1, const void *key2)
+{
+
+}
+int count_links(key_value_link* head)
+{
+  key_value_link*  current = head;
+  int count = 0;
+  while(current != NULL)
+  {
+    count++;
+    current = current->next;
+  }
+  return count;
+}
+
+void key_Sort(key_value_link* head, int (compare)(const void *, const void *) )
+{
+ int link_count = count_links(head);
+ key_value_link* sorted_links[link_count];
+ key_value_link* temp_pointer  = head;
+ int i =0 ;
+ while(temp_pointer!= NULL)
+ {
+   sorted_links[i] = temp_pointer;
+   temp_pointer = temp_pointer->next;
+   i++;
+ }
+ qsort(sorted_links, link_count, sizeof(key_value_link*), compare  );
+ i  =0;
+ temp_pointer = head;
+ while(temp_pointer != NULL)
+ {
+   temp_pointer  = sorted_links[i];
+   temp_pointer = temp_pointer->next;
+   i++;
+ }
+return;
+}
+
 key_value_link* goto_end_link(key_value_link* head )
 {
   key_value_link* current = head;
@@ -45,20 +86,20 @@ int write_map(int file_descriptor, key_value_link* pairs,void (parse_key_routine
  while(current!= NULL)
  {
    temp = (current->key);
-
+   parse_key_routine(current->key);
    // printf("key: %s\n",parsed_key );
    writer(file_descriptor, temp,get_sizeofkey_routine(temp), 1 );
-   writer(file_descriptor, ",",strlen(","), 1 );
+   writer(file_descriptor, "   ",strlen("   "), 1 );
    temp = toString( current->value);
    writer(file_descriptor, temp, strlen(temp), 1 );
    printf("\n");
    current = current->next;
  }
 }
-key_value_link* map(void *(context_parser) (void*), void* context, void* (mapper) (void*), int num_maps)
+key_value_link* map(void *(context_parser) (void*), void* context, void* (mapper) (void*), void* (compare)(void*)  ,int num_maps)
 {
   pthread_t map_threads[num_maps];
-pthread_mutex_init(&count_mutex, NULL);
+  pthread_mutex_init(&count_mutex, NULL);
   map_index* maps  = malloc(sizeof(map_index) * num_maps);
   // int i = 0;
   // while(i<num_maps)
@@ -126,7 +167,7 @@ pthread_mutex_init(&count_mutex, NULL);
   indexed_map* return_map  = malloc(sizeof(indexed_map));
   return_map->pairs = links[0];
   return_map->pairs_count = final_pair_count;
-
+  key_Sort(return_map->pairs, compare );
   return return_map;
 }
 // void update_key_value(void(key_compare) (void*), void* key)
