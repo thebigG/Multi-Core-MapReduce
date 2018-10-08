@@ -12,9 +12,18 @@ void parse_string(char* string)
 }
 int word_count_strcmp(void* key1, void* key2)
 {
-  printf("word_count_strcmp: {%s, %s}\n", (char*)key1, (char*) key2);
-  perror("strcmp");
-  return strcmp((char*)key1, (char*) key2);
+  // printf("word_count_strcmp: {%s, %s}\n", (char*)key1, (char*) key2);
+  if (key1 == NULL || key2 == NULL)
+  {
+    printf("NEGATIVE ONE!\n");
+    return FALSE;
+  }
+  int cmp_val = strcmp((char*)key1, (char*) key2);
+  if(cmp_val == 0)
+  {
+    return TRUE;
+  }
+  return FALSE;
 }
 int count_strings(StringLinkedList* head)
 {

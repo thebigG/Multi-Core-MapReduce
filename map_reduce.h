@@ -2,16 +2,20 @@
 #define MAP_REDUCE
 #include "word_count.h"
 #include "pthread.h"
-extern int map_count;
-extern int reduce_count;
-extern void* current_key; //used by reduce
-extern pthread_mutex_t count_mutex;
-typedef struct value_key_link
+
+typedef struct key_value_link
 {
 void* key;
 int value;
 struct key_value_link* next;
 } key_value_link;
+
+extern int map_count;
+extern int reduce_count;
+extern void* current_key; //used by reduce
+extern pthread_mutex_t count_mutex;
+// extern key_value_link* reduced_links;
+
 
 typedef struct
 {
@@ -37,8 +41,9 @@ typedef struct reduce_index
 {
   key_value_link* pairs;
   range* reduced_range;
+  key_value_link* reduced_links;
   int num_reduces;
-  int (*key_compare) (void*);
+  int (* key_compare) (void*, void*);
 } reduce_index;
 key_value_link* map(void *(data_parser) (void*), void* data, void* (data_routine) (void*), int );
 char* toString(int);

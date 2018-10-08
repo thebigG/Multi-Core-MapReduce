@@ -66,7 +66,13 @@ if(strcmp(WORDCOUNT, routine) ==  0)
   write_map(1,map_index->pairs, parse_string, strlen );
   printf("command line num_reduces: %d\n", num_reduces);
   // sleep(2);
-  // reduce(map_index->pairs, map_index->pairs_count,num_reduces, strcmp );
+ key_value_link* reduced_links  =   reduce(map_index->pairs, map_index->pairs_count,num_reduces, word_count_strcmp );
+   printf("reduced links:\n" );
+   write_map(1, reduced_links, parse_string, strlen  );
+}
+else if(strcmp(WORDCOUNT, routine) ==  0)
+{
+
 }
  //free(data);
 return 0;

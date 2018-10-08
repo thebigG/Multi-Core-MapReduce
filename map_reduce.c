@@ -9,7 +9,7 @@ map dispatches num_maps threads which call mapper.
 #include "word_count.h"
 pthread_mutex_t count_mutex;
 pthread_cond_t  condition_var = PTHREAD_COND_INITIALIZER;
-key_value_link* reduced_links = NULL;
+// key_value_link* reduced_links = NULL;
 //NOTE : lowercase everthing
 int map_count = 0;
 int reduce_count = 0;
@@ -17,11 +17,13 @@ void* global_current_key = NULL;
 
 key_value_link* goto_end_link(key_value_link* head )
 {
-  while(head->next!=NULL)
+  key_value_link* current = head;
+  while(current->next!=NULL)
   {
-    head = head->next;
+    current = current->next;
   }
-  return head;
+  printf("go_to_link value: %s\n", current->key);
+  return current;
 }
 void link_heads(key_value_link** heads, int num_heads  )
 {
@@ -144,106 +146,163 @@ while(i<offset)
 }
 return head;
 }
-// void add_link(key_value_link* head, key_value_link* new_link )
-// {
-// key_value_link*  current  = head;
-// if (current == NULL)
-// {
-//   current  = malloc(sizeof(key_value_link));
-//   return;
-// }
-// while()
-// {
-//
-// }
-//
-// }
-// /*
-// get_key_count assumes that the key_value_link is sorted/shuffled
-// */
-// int get_key_count(key_value_link* starting_link, void* key, int (key_compare) (void*, void*) )
-// {
-// int redundant_count = 0;
-// key_value_link* current = starting_link;
-// while(current!= NULL)
-// {
-// if (key_compare(current->key, key) == TRUE )
-// {
-//   reduce_count += current->value;
-// }
-// else
-// {
-//   break;
-// }
+void add_link(key_value_link* head, key_value_link* new_link )
+{
+key_value_link*  current  = head;
+if (current == NULL)
+{
+  current  = malloc(sizeof(key_value_link));
+  current->key = new_link->key;
+  current->value = new_link->value;
+  current->next  = NULL;
+  printf("1st if on add_link {%s, %d}", head->key, head->value);
+  return;
+}
+if(current->value != 0)
+{
+current =  goto_end_link(head);
 // current = current->next;
-// }
-// return redundant_count;
-// }
-// //iterate through the key_value_links inside map and add them to reduced_links
-// void reduce_helper(void* reduced_data )
-// {
-// reduce_index* reduce_context =  (reduce_index*) reduced_data;
-// // printf("Tid: %d start: %d\nend:%d\n", pthread_self(), reduce_context->reduced_range->start, reduce_context->reduced_range->end);
-// int i = 0;
-// int pairs_count = reduce_context->reduced_range->end - reduce_context->reduced_range->start;
-// key_value_link* head_link = reduce_context->pairs;
-// key_value_link* starting_link  =  go_to_link(head_link, reduce_context->reduced_range->start);
-// key_value_link*  current_link = starting_link;
-// int j = 0;
-// while(i<pairs_count)
-// {
-//   if  head_link->key_compare(global_current_key,current_link->key )
-//   {
-//     continue;
-//   }
-//   if ( has_key(current_link ,reduced_links,head_link->key_compare ) == FALSE)
-//   {
-//     global_current_key = current_link->key;
-//     current_link->value  =  get_key_count(current_link, global_current_key, head_link->key_compare );
-//   }
-// current_key = current_key->next;
-// i++;
-// }
-// // printf("");
-// reduce_count++;
-// return;
-// }
-// int has_key(void* key,key_value_link* head, int (key_compare) (void*, void*) )
-// {
-// if (head== NULL)
-// {
-//   return FALSE;
-// }
-// while(head->key != NULL)
-// {
-//   printf("has_key: {%s, %s}\n" , head->key ,key );
-//   if( key_compare(head->key, key) == 0)
-//   {
-//     return TRUE;
-//   }
-//   head = head->next;
-// }
-// return FALSE;
-// }
-// void* reduce(key_value_link* links, int links_list_size, int num_reduces, int (key_compare) (void*))
-// {
-// range* reduce_ranges = malloc(sizeof(range) * num_reduces)  ;
+current->next =   malloc(sizeof(key_value_link));
+current = current->next;
+current->key = new_link->key;
+current->value = new_link->value;
+key_value_link*  current2  = head;
+current2 = current2->next;
+printf("current2 key: %s\n", current2->key);
+current->next = NULL;
+printf("2nd if on add_link {%s, %d}\n", current->key, current->value);
+}
+else
+{
+  current->key = new_link->key;
+  current->value = new_link->value;
+  current->next = NULL;
+  printf("else on add_link {%s, %d}\n", head->key, head->value);
+}
+printf("old link: {%s, %d}\n", new_link->key, new_link->value );
+return;
+}
+/*
+get_key_count assumes that the key_value_link is sorted/shuffled
+*/
+int get_key_count(key_value_link* starting_link, void* key, int (key_compare) (void*, void*) )
+{
+int redundant_count = 0;
+key_value_link* current = starting_link;
+while(current!= NULL)
+{
+if (key_compare(current->key, key) == TRUE )
+{
+  redundant_count += current->value ;
+  printf("redundant_count: TRUE {%s, %s}\n", (char*)current->key, (char*)key);
+  // printf("redundant_count: %d\n", redundant_count);
+}
+else
+{
+  break;
+}
+current = current->next;
+}
+// printf("redundant_count: %d\n", redundant_count);
+return redundant_count;
+}
+//iterate through the key_value_links inside map and add them to reduced_links
+void reduce_helper(void* reduced_data )
+{
+reduce_index* reduce_context =  (reduce_index*) reduced_data;
+printf("Tid: %d start: %d\nend:%d\n", pthread_self(), reduce_context->reduced_range->start, reduce_context->reduced_range->end);
+int i = 0;
+int pairs_count = reduce_context->reduced_range->end - reduce_context->reduced_range->start;
+printf("pairs_count for reduce: %d\n",pairs_count );
+key_value_link* head_link = reduce_context->pairs;
+key_value_link* starting_link  =  go_to_link(head_link, reduce_context->reduced_range->start);
+printf("starting_link {%s,%d}\n", starting_link->key, starting_link->value);
+key_value_link*  current_link = starting_link;
+key_value_link* reduced_links = reduce_context->reduced_links;
+if(reduce_context->reduced_range->start>0)
+{
+printf("current state: \n");
+write_map(1, reduced_links, parse_string, strlen );
+}
+int j = 0;
+while(i<=pairs_count)
+{
+  //global_cuurent_key is NULL??
+  // printf();
+  printf("current i on reduce_helper: %d\n", i);
+  printf("reduced_links head: %d\n",(char*)current_link->value );
+  if(global_current_key != NULL)
+  {
+    if  (  reduce_context->key_compare(global_current_key,current_link->key) == TRUE )
+    {
+      printf("TRUE for key_compare\n");
+      i++;
+      current_link = current_link->next;
+      continue;
+    }
+  }
+  if ( has_key(current_link->key ,reduced_links,reduce_context->key_compare ) == FALSE)
+  {
+    global_current_key = current_link->key;
+    current_link->value  =  get_key_count(current_link ,current_link->key, reduce_context->key_compare );
+    add_link(reduced_links,current_link );
+  }
+current_link = current_link->next;
+// printf("value of i: %d");
+i++;
+}
+// printf("");
+reduce_count++;
+return;
+}
+
+int has_key(void* key,key_value_link* head, int (key_compare) (void*, void*) )
+{
+  printf("head->key : {%s}\n" , head->key);
+if (head->value == 0 || key == NULL )
+{
+  // printf("FALSE ON  has_key\n");
+  return FALSE;
+}
+// printf("key address: %d\n", head->key);
+while(head != NULL)
+{
+  // printf("key:{ %s}\n", key );
+  if( key_compare(head->key, key) == TRUE)
+  {
+    printf("TRUE on has_key: {%s, %s}",head->key, key );
+    return TRUE;
+  }
+  head = head->next;
+}
+return FALSE;
+}
+void* reduce(key_value_link* links, int links_list_size, int num_reduces, int (key_compare) (void*))
+{
+range* reduce_ranges = malloc(sizeof(range) * num_reduces)  ;
 // reduced_links = malloc(sizeof(key_value_link));
-// pthread_t reduce_threads[num_reduces];
-// init_distribute_data(reduce_ranges, links_list_size, num_reduces);
-// reduce_index* reduce_indecies  = malloc(sizeof(reduce_index) * num_reduces);
-// int i = 0;
-// while(i<num_reduces)
-//   {
-//     reduce_indecies[i].pairs = links;
-//     reduce_indecies[i].reduced_range = &reduce_ranges[i];
-//     // pthread_detach(reduce_threads[i]);
-//     pthread_create(&reduce_threads[i] ,NULL,reduce_helper, &reduce_indecies[i] );
-//     pthread_join(reduce_threads[i], NULL);
-//     i++;
-//   }
-//   while(reduce_count<num_reduces)
-//   i++;
-//   printf("done with reduce!\n");
-//
-// }
+pthread_t reduce_threads[num_reduces];
+init_distribute_data(reduce_ranges, links_list_size, num_reduces);
+reduce_index* reduce_indecies  = malloc(sizeof(reduce_index) * num_reduces);
+key_value_link* return_reduced_links  =  malloc(sizeof(key_value_link));
+int i = 0;
+return_reduced_links->key = NULL;
+return_reduced_links->value  = 0;
+return_reduced_links->next = NULL;
+while(i<num_reduces)
+  {
+    reduce_indecies[i].pairs = links;
+    reduce_indecies[i].reduced_range = &reduce_ranges[i];
+    reduce_indecies[i].key_compare = key_compare;
+    reduce_indecies[i].reduced_links = return_reduced_links;
+    // pthread_detach(reduce_threads[i]);
+    pthread_create(&reduce_threads[i] ,NULL,reduce_helper, &reduce_indecies[i] );
+    pthread_join(reduce_threads[i], NULL);
+    i++;
+  }
+  while(reduce_count<num_reduces)
+  i++;
+  printf("done with reduce!\n");
+
+return return_reduced_links;
+}
