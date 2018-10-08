@@ -82,16 +82,15 @@ int main(int argc, char** argv)
    return -1;
  }
 
+ data[input_file_size] = '\0';					// Ensure there is a null at the end of the string data
+
 // ***** TESTING
 // printf("num_maps: %d\n", num_maps);
 // printf("program: %s\n", routine );
 // ***** END Testing
 
  if(strncmp(WORDCOUNT, routine, (ARGSIZE*sizeof(char))) ==  0) 	//if routine = wordcount, then
- {
-   data[input_file_size] = '\0';					// Ensure there is a null at the end of the string data
-
-								// createstruct
+ {								// createstruct
    token_split_object * word_data = (token_split_object *) malloc(sizeof(token_split_object));
    assert(word_data != NULL);				      	// if malloc returns NULL, give error
  
@@ -124,7 +123,29 @@ int main(int argc, char** argv)
    int i = 0;
    while(i<10000)
    i++;
-   write_map(1,map_index->pairs, parse_string, strlen);
+
+//   FILE * newfile;
+//  if((newfile = fopen(output_file,"r"))!=NULL)
+//   {
+//	remove(output_file);
+ //  }
+
+//   newfile = fopen(output_file, "w+");
+//   fclose(output_file);
+
+   int output_fd  = open(output_file, O_CREAT | O_RDWR, S_IRWXU | S_IRWXO);		// open output_file to write to it
+
+   printf("output_file %s\n", output_file);
+   printf("output_fd %d\n", output_fd);
+   if(output_fd == -1)					// if -1, then throw error and exit
+   {
+     perror("open output file");
+     return -1;
+   }
+
+  printf("Works?\n");
+
+   write_map(output_fd,map_index->pairs, parse_string, strlen);
 
 // printf("command line num_reduces: %d\n", num_reduces);
 
