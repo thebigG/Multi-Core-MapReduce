@@ -31,7 +31,7 @@ int input_fd  = open(input_file, O_RDONLY);
 if(input_fd == -1)
 {
   perror("open");
-  return -1;
+  return -1; 
 }
 if(reader(input_fd, data, input_file_szie, input_file_szie) == -1)
 {
