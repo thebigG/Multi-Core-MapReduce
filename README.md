@@ -1,7 +1,7 @@
 # Multi-Core-MapReduce
-
-Anton Ryjov (https://github.com/AnPlusOn)
-Lorenzo Gomez (https://github.com/thebigG)
+Contributors:
+Anton Ryjov (https://github.com/AnPlusOn),
+Lorenzo Gomez (https://github.com/thebigG),
 Michelle Dry-Moran (https://github.com/rossidiva150)
 
 
