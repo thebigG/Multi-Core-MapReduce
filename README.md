@@ -1,8 +1,8 @@
 # Multi-Core-MapReduce
 
-Anton Ryjov (netid: aar188)
-Lorenzo Gomez (netid: lbg65)
-Michelle Dry-Moran (netid: mdry)
+Anton Ryjov (https://github.com/AnPlusOn)
+Lorenzo Gomez (https://github.com/thebigG)
+Michelle Dry-Moran (https://github.com/rossidiva150)
 
 
 To Compile: Make
